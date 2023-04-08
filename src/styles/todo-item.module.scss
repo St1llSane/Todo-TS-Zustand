@@ -1,0 +1,63 @@
+@import '../styles/vars.scss';
+
+.todoItem {
+	border: 1px solid $c-accent;
+	border-radius: $b-r-medium;
+	height: 42px;
+	padding: 0 18px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	column-gap: 18px;
+
+	.checkbox {
+		label {
+			width: 14px;
+			height: 14px;
+			background-color: $c-white;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			border-radius: $b-r-small;
+
+			input {
+				position: absolute;
+				z-index: -999;
+				opacity: 0;
+			}
+
+			span {
+				width: 8px;
+				height: 8px;
+				display: block;
+				background-color: $c-white;
+        border-radius: $b-r-small;
+        transition: $transition;
+			}
+
+			input:checked + span {
+				background-color: $c-accent-light;
+			}
+		}
+	}
+
+	p {
+		flex: 1;
+	}
+
+  .controls {
+    display: flex;
+    align-items: center;
+    column-gap: 15px;
+    
+    button {
+      display: flex;
+      font-size: 18px;
+      transition: $transition;
+      
+      &:hover {
+        color: $c-accent-light;
+      }
+    }
+  }
+}
