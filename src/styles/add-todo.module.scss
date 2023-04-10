@@ -36,6 +36,14 @@
       height: 100%;
       transition: $transition;
 
+			&.invalid {
+				background-color: $c-red;
+
+				&:hover {
+					background-color: $c-red;
+				}
+			}
+
 			&:hover {
 				background-color: $c-accent;
 			}

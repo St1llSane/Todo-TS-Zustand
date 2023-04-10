@@ -14,6 +14,9 @@ const App: FC = () => {
 		]
 	)
 
+	console.log(todos);
+	
+
 	return (
 		<div className={styles.app}>
 			<div className={styles.wrapper}>
