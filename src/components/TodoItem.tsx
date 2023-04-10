@@ -1,5 +1,12 @@
-import { FC, useState } from 'react'
-import { AiFillEdit, AiFillDelete } from 'react-icons/ai'
+import {
+	FC,
+	ChangeEvent,
+	useState,
+	useRef,
+	useEffect,
+	KeyboardEventHandler,
+} from 'react'
+import { AiFillEdit, AiFillDelete, AiOutlineCheck } from 'react-icons/ai'
 import { useTodoStore } from '../data/stores/useTodoStore'
 import styles from '../styles/todo-item.module.scss'
 
@@ -9,11 +16,42 @@ interface TodoItemProps {
 }
 
 const TodoItem: FC<TodoItemProps> = ({ id, title }) => {
-	const [deleteTodo] = useTodoStore((state) => [state.deleteTodo])
-	const [checked, isChecked] = useState(false)
+	const [updateTodo, deleteTodo] = useTodoStore((state) => [
+		state.updateTodo,
+		state.deleteTodo,
+	])
+	const [checked, setChecked] = useState(false)
+	const [editing, setEditing] = useState(false)
+	const [inputValue, setInputValue] = useState(title)
+	const inputRef = useRef<HTMLInputElement | null>(null)
+
+	useEffect(() => {
+		if (editing) {
+			inputRef.current?.focus()
+		}
+	})
 
 	const checkboxHandler = () => {
-		isChecked(!checked)
+		setChecked(!checked)
+	}
+
+	const inputEditingHandler = () => {
+		setEditing(!editing)
+		updateTodo(id, inputValue)
+	}
+
+	const editingHandler = () => {
+		inputEditingHandler()
+	}
+
+	const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+		setInputValue(e.target.value)
+	}
+
+	const saveEdited: KeyboardEventHandler<HTMLInputElement> = (e) => {
+		if (e.key === 'Enter' || e.key === 'Tab') {
+			inputEditingHandler()
+		}
 	}
 
 	const deleteHandler = () => {
@@ -27,15 +65,25 @@ const TodoItem: FC<TodoItemProps> = ({ id, title }) => {
 					<input
 						type='checkbox'
 						checked={checked}
+						disabled={editing}
 						onChange={checkboxHandler}
 					/>
 					<span></span>
 				</label>
 			</div>
-			<p>{title}</p>
+			{editing ? (
+				<input
+					value={inputValue}
+					ref={inputRef}
+					onChange={inputHandler}
+					onKeyDown={saveEdited}
+				/>
+			) : (
+				<p>{title}</p>
+			)}
 			<div className={styles.controls}>
-				<button className={styles.edit}>
-					<AiFillEdit />
+				<button className={styles.edit} onClick={editingHandler}>
+					{editing ? <AiOutlineCheck /> : <AiFillEdit />}
 				</button>
 				<button className={styles.delete} onClick={deleteHandler}>
 					<AiFillDelete />

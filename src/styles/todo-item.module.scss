@@ -45,6 +45,12 @@
 		}
 	}
 
+	input {
+		border-bottom: 1px solid $c-accent;
+		flex: 1;
+		padding: 2px 0;
+	}
+
 	p {
 		flex: 1;
 	}
