@@ -19,10 +19,11 @@ const AddTodo: FC = () => {
 	const submitHandler = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 
-		if (inputRef.current && inputRef.current.value.length >= 5) {
+		if (inputRef.current && inputRef.current?.value.length >= 5) {
 			createTodo(inputValue)
 			setIsValid(true)
 			setInputValue('')
+			inputRef.current?.focus()
 		} else {
 			setIsValid(false)
 		}

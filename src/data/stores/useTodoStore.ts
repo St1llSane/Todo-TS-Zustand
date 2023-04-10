@@ -15,7 +15,7 @@ interface TodoStore {
 
 export const useTodoStore = create<TodoStore>((set, get) => ({
 	todos: [],
-	createTodo: (title) => {
+	createTodo: (title: string) => {
 		const { todos } = get()
 		const newTask = {
 			id: Date.now() + (Math.random() * 100 + Math.random()),
@@ -27,7 +27,7 @@ export const useTodoStore = create<TodoStore>((set, get) => ({
 			todos: [newTask].concat(todos),
 		})
 	},
-	updateTodo: (id, title) => {
+	updateTodo: (id: number, title: string) => {
 		const { todos } = get()
 
 		set({
@@ -37,13 +37,11 @@ export const useTodoStore = create<TodoStore>((set, get) => ({
 			})),
 		})
 	},
-	deleteTodo: (id) => {
+	deleteTodo: (id: number) => {
 		const { todos } = get()
 
 		set({
-			todos: todos.filter((todo) => {
-				todo.id !== id
-			}),
+			todos: todos.filter((todo) => todo.id !== id),
 		})
 	},
 }))

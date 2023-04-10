@@ -1,20 +1,21 @@
 @import '../styles/vars.scss';
 
 body {
-  font-family: 'Anuphan', sans-serif;
-  color: $c-white;
-  background-color: $c-bg;
+	font-family: 'Anuphan', sans-serif;
+	color: $c-white;
+	background-color: $c-bg;
 }
 
 .app {
-  height: 95vh;
-  display: grid;
-  place-content: center;
-  grid-template-columns: minmax(300px, 560px);
+	min-height: 100vh;
+	display: grid;
+	place-content: center;
+	grid-template-columns: minmax(300px, 560px);
+	padding: 80px 0;
 
-  .wrapper {
-    background-color: $c-bg-light;
-    border-radius: $b-r-big;
-    padding: 30px 40px;
-  }
+	.wrapper {
+		background-color: $c-bg-light;
+		border-radius: $b-r-big;
+		padding: 30px 40px;
+	}
 }
