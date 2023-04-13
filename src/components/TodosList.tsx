@@ -11,7 +11,12 @@ const TodosList: FC = () => {
 		<div className={styles.todoList}>
 			{todos.length >= 1 ? (
 				todos.map((todo) => (
-					<TodoItem id={todo.id} title={todo.title} key={todo.id} />
+					<TodoItem
+						id={todo.id}
+						title={todo.title}
+						completed={todo.completed}
+						key={todo.id}
+					/>
 				))
 			) : (
 				<NoTodos />

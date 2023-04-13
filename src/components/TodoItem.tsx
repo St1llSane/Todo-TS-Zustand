@@ -13,14 +13,13 @@ import styles from '../styles/todo-item.module.scss'
 interface TodoItemProps {
 	id: number
 	title: string
+	completed: boolean
 }
 
-const TodoItem: FC<TodoItemProps> = ({ id, title }) => {
-	const [updateTodo, deleteTodo] = useTodoStore((state) => [
-		state.updateTodo,
-		state.deleteTodo,
-	])
-	const [checked, setChecked] = useState(false)
+const TodoItem: FC<TodoItemProps> = ({ id, title, completed }) => {
+	const [updateTodo, deleteTodo, changeCompleted] = useTodoStore(
+		(state) => [state.updateTodo, state.deleteTodo, state.changeCompleted]
+	)
 	const [editing, setEditing] = useState(false)
 	const [inputValue, setInputValue] = useState(title)
 	const inputRef = useRef<HTMLInputElement | null>(null)
@@ -32,7 +31,7 @@ const TodoItem: FC<TodoItemProps> = ({ id, title }) => {
 	})
 
 	const checkboxHandler = () => {
-		setChecked(!checked)
+		changeCompleted(id, completed)
 	}
 
 	const inputEditingHandler = () => {
@@ -64,7 +63,7 @@ const TodoItem: FC<TodoItemProps> = ({ id, title }) => {
 				<label>
 					<input
 						type='checkbox'
-						checked={checked}
+						checked={completed}
 						disabled={editing}
 						onChange={checkboxHandler}
 					/>

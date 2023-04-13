@@ -5,6 +5,7 @@ interface Todo {
 	id: number
 	title: string
 	createdAt: number
+	completed: boolean
 }
 
 interface TodoStore {
@@ -12,6 +13,7 @@ interface TodoStore {
 	createTodo: (title: string) => void
 	updateTodo: (id: number, title: string) => void
 	deleteTodo: (id: number) => void
+	changeCompleted: (id: number, completed: boolean) => void
 }
 
 export const useTodoStore = create<TodoStore>()(
@@ -25,6 +27,7 @@ export const useTodoStore = create<TodoStore>()(
 						id: Date.now() + (Math.random() * 100 + Math.random()),
 						title,
 						createdAt: Date.now(),
+						completed: false,
 					}
 
 					set({
@@ -46,6 +49,15 @@ export const useTodoStore = create<TodoStore>()(
 
 					set({
 						todos: todos.filter((todo) => todo.id !== id),
+					})
+				},
+				changeCompleted: (id: number, completed: boolean) => {
+					const { todos } = get()
+
+					set({
+						todos: todos.map((todo) =>
+							todo.id === id ? { ...todo, completed: !completed } : todo
+						),
 					})
 				},
 			}),
