@@ -14,6 +14,8 @@ interface TodoStore {
 	updateTodo: (id: number, title: string) => void
 	deleteTodo: (id: number) => void
 	changeCompleted: (id: number, completed: boolean) => void
+	deleteAll: () => void
+	deleteChecked: () => void
 }
 
 export const useTodoStore = create<TodoStore>()(
@@ -58,6 +60,16 @@ export const useTodoStore = create<TodoStore>()(
 						todos: todos.map((todo) =>
 							todo.id === id ? { ...todo, completed: !completed } : todo
 						),
+					})
+				},
+				deleteAll: () => {
+					set({ todos: [] })
+				},
+				deleteChecked: () => {
+					const { todos } = get()
+
+					set({
+						todos: todos.filter((todo) => todo.completed === false),
 					})
 				},
 			}),

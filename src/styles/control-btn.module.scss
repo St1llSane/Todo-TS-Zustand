@@ -1,0 +1,38 @@
+@import '../styles/vars.scss';
+
+.controlBtn {
+	width: 40px;
+	height: 40px;
+	background-color: $c-bg;
+  border: 1px solid $c-accent;
+	border-radius: $b-r-medium;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: $transition;
+
+	&:hover {
+		background-color: $c-accent;
+	}
+
+	&:disabled {
+    border-color: $c-bg;
+    cursor: auto;
+    
+		&:hover {
+			background-color: $c-bg;
+		}
+	}
+	&:disabled svg {
+		color: $c-grey;
+	}
+
+	svg {
+		font-size: 1.3rem;
+		transition: $transition;
+
+		&.all {
+			font-size: 1.5rem;
+		}
+	}
+}

@@ -1,8 +1,8 @@
 import { FC } from 'react'
-import styles from '../styles/todos-list.module.scss'
-import TodoItem from './TodoItem'
 import { useTodoStore } from '../data/stores/useTodoStore'
+import TodoItem from './TodoItem'
 import NoTodos from './NoTodos'
+import styles from '../styles/todos-list.module.scss'
 
 const TodosList: FC = () => {
 	const [todos] = useTodoStore((state) => [state.todos])
