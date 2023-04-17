@@ -8,12 +8,13 @@ body {
 
 .app {
 	min-height: 100vh;
-	display: grid;
-	place-content: center;
-	grid-template-columns: minmax(300px, 560px);
-	padding: 80px 0;
-
+	display: flex;
+	justify-content: center;
+	padding: 100px 0;
+	
 	.wrapper {
+		width: 100%;
+		max-width: 560px;
 		background-color: $c-bg-light;
 		border-radius: $b-r-big;
 		padding: 30px 40px;

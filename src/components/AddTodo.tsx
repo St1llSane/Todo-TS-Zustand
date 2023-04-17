@@ -11,7 +11,7 @@ const AddTodo: FC = () => {
 	const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
 		setInputValue(e.target.value)
 
-		if (isValid === false && e.target.value.length >= 5) {
+		if (isValid === false && e.target.value.length >= 1) {
 			setIsValid(true)
 		}
 	}
@@ -19,7 +19,7 @@ const AddTodo: FC = () => {
 	const submitHandler = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 
-		if (inputRef.current && inputRef.current?.value.length >= 5) {
+		if (inputRef.current && inputRef.current?.value.length >= 1) {
 			createTodo(inputValue)
 			setIsValid(true)
 			setInputValue('')
@@ -35,7 +35,7 @@ const AddTodo: FC = () => {
 			<form className={styles.form} onSubmit={submitHandler}>
 				<input
 					type='text'
-					placeholder='Enter at least 5 characters...'
+					placeholder='Enter text...'
 					value={inputValue}
 					ref={inputRef}
 					onChange={changeHandler}

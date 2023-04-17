@@ -9,6 +9,7 @@ import {
 import { AiFillEdit, AiFillDelete, AiOutlineCheck } from 'react-icons/ai'
 import { useTodoStore } from '../data/stores/useTodoStore'
 import styles from '../styles/todo-item.module.scss'
+import { AnimatePresence, motion } from 'framer-motion'
 
 interface TodoItemProps {
 	id: number
@@ -58,37 +59,45 @@ const TodoItem: FC<TodoItemProps> = ({ id, title, completed }) => {
 	}
 
 	return (
-		<div className={styles.todoItem}>
-			<div className={styles.checkbox}>
-				<label>
+		<AnimatePresence mode='popLayout'>
+			<motion.div
+				className={styles.todoItem}
+				layout
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
+				exit={{ opacity: 0 }}
+			>
+				<div className={styles.checkbox}>
+					<label>
+						<input
+							type='checkbox'
+							checked={completed}
+							disabled={editing}
+							onChange={checkboxHandler}
+						/>
+						<span></span>
+					</label>
+				</div>
+				{editing ? (
 					<input
-						type='checkbox'
-						checked={completed}
-						disabled={editing}
-						onChange={checkboxHandler}
+						value={inputValue}
+						ref={inputRef}
+						onChange={inputHandler}
+						onKeyDown={saveEdited}
 					/>
-					<span></span>
-				</label>
-			</div>
-			{editing ? (
-				<input
-					value={inputValue}
-					ref={inputRef}
-					onChange={inputHandler}
-					onKeyDown={saveEdited}
-				/>
-			) : (
-				<p>{title}</p>
-			)}
-			<div className={styles.controls}>
-				<button className={styles.edit} onClick={editingHandler}>
-					{editing ? <AiOutlineCheck /> : <AiFillEdit />}
-				</button>
-				<button className={styles.delete} onClick={deleteHandler}>
-					<AiFillDelete />
-				</button>
-			</div>
-		</div>
+				) : (
+					<p>{title}</p>
+				)}
+				<div className={styles.controls}>
+					<button className={styles.edit} onClick={editingHandler}>
+						{editing ? <AiOutlineCheck /> : <AiFillEdit />}
+					</button>
+					<button className={styles.delete} onClick={deleteHandler}>
+						<AiFillDelete />
+					</button>
+				</div>
+			</motion.div>
+		</AnimatePresence>
 	)
 }
 
